@@ -4,7 +4,7 @@ author: "Gabriel Carrasco y Antony Barja"
 date: "`r Sys.Date()`"
 output:
   rmdformats::downcute:
-    self_contained: true
+    self_contained: false
     default_style: "light"
     downcute_theme: "default"
 ---
@@ -14,10 +14,40 @@ output:
 knitr::opts_chunk$set(cache = TRUE)
 ```
 
+```{r ,echo=FALSE, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(cptcity)
+library(plotly)
+temp <- read_rds("data/temp")
+tidydata <- temp %>%
+  pivot_longer(cols = `tmmx1958-01`:`tmmx2020-11`) %>%
+  mutate(
+    dep = case_when(
+      dep == "CALLAO" ~ "LIMA",
+      dep != "CALLAO" ~ dep
+    )
+  ) %>%
+  mutate(fecha = substr(name, 5, 8)) %>%
+  mutate(
+    year = as.integer(substr(fecha, 1, 4)),
+    temp = as.double(value)
+  ) %>%
+  select(dep, year, temp) %>%
+  mutate(dep = factor(dep)) %>%
+  group_by(dep, year) %>%
+  summarise(temp = mean(temp))
+
+temp_ref <- tidydata %>%
+  filter(year == 1980) %>%
+  select(temp)
+
+names <- tidydata %>% select(dep) %>% unique()
+```
+
 ### 1. Metodología
 
 > Los valores de temperatura máxima estimado para cada uno de los 24 departamentos del Perú desde el año de 1980 al 2022, fueron calculados mediante estadisticas areales, donde el promedio anual de todos pixeles entrantantes en las respectivas regiones durante los ultimos 42 años fueron consideradas para su estimación, para posteriormente ser gráficados mediante los **Stripes** o **rayas de Ed Hawkins**.
-Las Stripes son representaciones visuales donde se evalua la evolución de las  temperaturas medias para cada una de las regiones de interés  durante al menos los últimos 100 años.
+Las Stripes son representaciones visuales donde se evalua la evolución de las  temperaturas medias para cada una de las regiones de interés  durante los últimos 42 años.
 
 <img src="./workflow.svg" width="100%">
 
@@ -29,150 +59,654 @@ Los valores de temperatura máxima obtenidas durante  los últimos 42 años, fue
 
 #### AMAZONAS
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+ref <- temp_ref %>% filter(dep == "AMAZONAS") %>%
+    select(temp) %>% pull()
 
+data <- tidydata %>% filter(dep == "AMAZONAS") %>%
+    mutate(temp = temp)
+
+p1 <- data %>%
+    ggplot(aes(x = year,y = 1, fill = temp)) +
+    geom_tile() +
+    scale_fill_gradientn(
+      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
+      na.value = "transparent"
+    ) +
+    theme_void() +
+    labs(
+      subtitle = "(1958-2020)",
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
+    ) +
+    labs(title = "AMAZONAS")
+ggplotly(p1) %>% 
+  config(displayModeBar = F) %>% 
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
 ```
 
 
 #### ANCASH
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+ref <- temp_ref %>% filter(dep == "ANCASH") %>%
+    select(temp) %>% pull()
 
+data <- tidydata %>% filter(dep == "ANCASH") %>%
+    mutate(temp = temp)
+
+p1 <- data %>%
+    ggplot(aes(x = year,y = 1, fill = temp)) +
+    geom_tile() +
+    scale_fill_gradientn(
+      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
+      na.value = "transparent"
+    ) +
+    theme_void() +
+    labs(
+      subtitle = "(1958-2020)",
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
+    ) +
+    labs(title = "ANCASH")
+ggplotly(p1) %>% 
+  config(displayModeBar = F) %>% 
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
 ```
 
 #### APURIMAC
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+ref <- temp_ref %>% filter(dep == "APURIMAC") %>%
+    select(temp) %>% pull()
 
+data <- tidydata %>% filter(dep == "APURIMAC") %>%
+    mutate(temp = temp)
+
+p1 <- data %>%
+    ggplot(aes(x = year,y = 1, fill = temp)) +
+    geom_tile() +
+    scale_fill_gradientn(
+      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
+      na.value = "transparent"
+    ) +
+    theme_void() +
+    labs(
+      subtitle = "(1958-2020)",
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
+    ) +
+    labs(title = "APURIMAC")
+ggplotly(p1) %>% 
+  config(displayModeBar = F) %>% 
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
 ```
 
 #### AREQUIPA
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+ref <- temp_ref %>% filter(dep == "AREQUIPA") %>%
+    select(temp) %>% pull()
 
+data <- tidydata %>% filter(dep == "AREQUIPA") %>%
+    mutate(temp = temp)
+
+p1 <- data %>%
+    ggplot(aes(x = year,y = 1, fill = temp)) +
+    geom_tile() +
+    scale_fill_gradientn(
+      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
+      na.value = "transparent"
+    ) +
+    theme_void() +
+    labs(
+      subtitle = "(1958-2020)",
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
+    ) +
+    labs(title = "AREQUIPA")
+ggplotly(p1) %>% 
+  config(displayModeBar = F) %>% 
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
 ```
 
 #### AYACUCHO
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+ref <- temp_ref %>% filter(dep == "AYACUCHO") %>%
+    select(temp) %>% pull()
 
+data <- tidydata %>% filter(dep == "AYACUCHO") %>%
+    mutate(temp = temp)
+
+p1 <- data %>%
+    ggplot(aes(x = year,y = 1, fill = temp)) +
+    geom_tile() +
+    scale_fill_gradientn(
+      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
+      na.value = "transparent"
+    ) +
+    theme_void() +
+    labs(
+      subtitle = "(1958-2020)",
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
+    ) +
+    labs(title = "AYACUCHO")
+ggplotly(p1) %>% 
+  config(displayModeBar = F) %>% 
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
 ```
 
 #### CAJAMARCA
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+ref <- temp_ref %>% filter(dep == "CAJAMARCA") %>%
+    select(temp) %>% pull()
 
+data <- tidydata %>% filter(dep == "CAJAMARCA") %>%
+    mutate(temp = temp)
+
+p1 <- data %>%
+    ggplot(aes(x = year,y = 1, fill = temp)) +
+    geom_tile() +
+    scale_fill_gradientn(
+      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
+      na.value = "transparent"
+    ) +
+    theme_void() +
+    labs(
+      subtitle = "(1958-2020)",
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
+    ) +
+    labs(title = "CAJAMARCA")
+ggplotly(p1) %>% 
+  config(displayModeBar = F) %>% 
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
 ```
 
 #### CUSCO
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+ref <- temp_ref %>% filter(dep == "CUSCO") %>%
+    select(temp) %>% pull()
 
+data <- tidydata %>% filter(dep == "CUSCO") %>%
+    mutate(temp = temp)
+
+p1 <- data %>%
+    ggplot(aes(x = year,y = 1, fill = temp)) +
+    geom_tile() +
+    scale_fill_gradientn(
+      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
+      na.value = "transparent"
+    ) +
+    theme_void() +
+    labs(
+      subtitle = "(1958-2020)",
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
+    ) +
+    labs(title = "CUSCO")
+ggplotly(p1) %>% 
+  config(displayModeBar = F) %>% 
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
 ```
 
 #### HUANCAVELICA
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+ref <- temp_ref %>% filter(dep == "HUANCAVELICA") %>%
+    select(temp) %>% pull()
 
+data <- tidydata %>% filter(dep == "HUANCAVELICA") %>%
+    mutate(temp = temp)
+
+p1 <- data %>%
+    ggplot(aes(x = year,y = 1, fill = temp)) +
+    geom_tile() +
+    scale_fill_gradientn(
+      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
+      na.value = "transparent"
+    ) +
+    theme_void() +
+    labs(
+      subtitle = "(1958-2020)",
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
+    ) +
+    labs(title = "HUANCAVELICA")
+ggplotly(p1) %>% 
+  config(displayModeBar = F) %>% 
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
 ```
 
 #### HUANUCO
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+ref <- temp_ref %>% filter(dep == "HUANUCO") %>%
+    select(temp) %>% pull()
 
+data <- tidydata %>% filter(dep == "HUANUCO") %>%
+    mutate(temp = temp)
+
+p1 <- data %>%
+    ggplot(aes(x = year,y = 1, fill = temp)) +
+    geom_tile() +
+    scale_fill_gradientn(
+      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
+      na.value = "transparent"
+    ) +
+    theme_void() +
+    labs(
+      subtitle = "(1958-2020)",
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
+    ) +
+    labs(title = "HUANUCO")
+ggplotly(p1) %>% 
+  config(displayModeBar = F) %>% 
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
 ```
 
 #### ICA
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+ref <- temp_ref %>% filter(dep == "ICA") %>%
+    select(temp) %>% pull()
 
+data <- tidydata %>% filter(dep == "ICA") %>%
+    mutate(temp = temp)
+
+p1 <- data %>%
+    ggplot(aes(x = year,y = 1, fill = temp)) +
+    geom_tile() +
+    scale_fill_gradientn(
+      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
+      na.value = "transparent"
+    ) +
+    theme_void() +
+    labs(
+      subtitle = "(1958-2020)",
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
+    ) +
+    labs(title = "ICA")
+ggplotly(p1) %>% 
+  config(displayModeBar = F) %>% 
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
 ```
 
 #### JUNIN
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+ref <- temp_ref %>% filter(dep == "JUNIN") %>%
+    select(temp) %>% pull()
 
+data <- tidydata %>% filter(dep == "JUNIN") %>%
+    mutate(temp = temp)
+
+p1 <- data %>%
+    ggplot(aes(x = year,y = 1, fill = temp)) +
+    geom_tile() +
+    scale_fill_gradientn(
+      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
+      na.value = "transparent"
+    ) +
+    theme_void() +
+    labs(
+      subtitle = "(1958-2020)",
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
+    ) +
+    labs(title = "JUNIN")
+ggplotly(p1) %>% 
+  config(displayModeBar = F) %>% 
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
 ```
 
 #### LA LIBERTAD
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+ref <- temp_ref %>% filter(dep == "LA LIBERTAD") %>%
+    select(temp) %>% pull()
 
+data <- tidydata %>% filter(dep == "LA LIBERTAD") %>%
+    mutate(temp = temp)
+
+p1 <- data %>%
+    ggplot(aes(x = year,y = 1, fill = temp)) +
+    geom_tile() +
+    scale_fill_gradientn(
+      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
+      na.value = "transparent"
+    ) +
+    theme_void() +
+    labs(
+      subtitle = "(1958-2020)",
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
+    ) +
+    labs(title = "LA LIBERTAD")
+ggplotly(p1) %>% 
+  config(displayModeBar = F) %>% 
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
 ```
 
 
 #### LAMBAYEQUE
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+ref <- temp_ref %>% filter(dep == "LAMBAYEQUE") %>%
+    select(temp) %>% pull()
 
+data <- tidydata %>% filter(dep == "LAMBAYEQUE") %>%
+    mutate(temp = temp)
+
+p1 <- data %>%
+    ggplot(aes(x = year,y = 1, fill = temp)) +
+    geom_tile() +
+    scale_fill_gradientn(
+      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
+      na.value = "transparent"
+    ) +
+    theme_void() +
+    labs(
+      subtitle = "(1958-2020)",
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
+    ) +
+    labs(title = "LAMBAYEQUE")
+ggplotly(p1) %>% 
+  config(displayModeBar = F) %>% 
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
 ```
 
 
 #### LIMA
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+ref <- temp_ref %>% filter(dep == "LIMA") %>%
+    select(temp) %>% pull()
 
+data <- tidydata %>% filter(dep == "LIMA") %>%
+    mutate(temp = temp)
+
+p1 <- data %>%
+    ggplot(aes(x = year,y = 1, fill = temp)) +
+    geom_tile() +
+    scale_fill_gradientn(
+      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
+      na.value = "transparent"
+    ) +
+    theme_void() +
+    labs(
+      subtitle = "(1958-2020)",
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
+    ) +
+    labs(title = "LIMA")
+ggplotly(p1) %>% 
+  config(displayModeBar = F) %>% 
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
 ```
 
 #### LORETO
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+ref <- temp_ref %>% filter(dep == "LORETO") %>%
+    select(temp) %>% pull()
 
+data <- tidydata %>% filter(dep == "LORETO") %>%
+    mutate(temp = temp)
+
+p1 <- data %>%
+    ggplot(aes(x = year,y = 1, fill = temp)) +
+    geom_tile() +
+    scale_fill_gradientn(
+      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
+      na.value = "transparent"
+    ) +
+    theme_void() +
+    labs(
+      subtitle = "(1958-2020)",
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
+    ) +
+    labs(title = "LORETO")
+ggplotly(p1) %>% 
+  config(displayModeBar = F) %>% 
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
 ```
 
 #### MADRE DE DIOS
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+ref <- temp_ref %>% filter(dep == "MADRE DE DIOS") %>%
+    select(temp) %>% pull()
 
+data <- tidydata %>% filter(dep == "MADRE DE DIOS") %>%
+    mutate(temp = temp)
+
+p1 <- data %>%
+    ggplot(aes(x = year,y = 1, fill = temp)) +
+    geom_tile() +
+    scale_fill_gradientn(
+      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
+      na.value = "transparent"
+    ) +
+    theme_void() +
+    labs(
+      subtitle = "(1958-2020)",
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
+    ) +
+    labs(title = "MADRE DE DIOS")
+ggplotly(p1) %>% 
+  config(displayModeBar = F) %>% 
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
 ```
 
 #### MOQUEGUA
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+ref <- temp_ref %>% filter(dep == "MOQUEGUA") %>%
+    select(temp) %>% pull()
 
+data <- tidydata %>% filter(dep == "MOQUEGUA") %>%
+    mutate(temp = temp)
+
+p1 <- data %>%
+    ggplot(aes(x = year,y = 1, fill = temp)) +
+    geom_tile() +
+    scale_fill_gradientn(
+      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
+      na.value = "transparent"
+    ) +
+    theme_void() +
+    labs(
+      subtitle = "(1958-2020)",
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
+    ) +
+    labs(title = "MOQUEGUA")
+ggplotly(p1) %>% 
+  config(displayModeBar = F) %>% 
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
 ```
 
 #### PASCO
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+ref <- temp_ref %>% filter(dep == "PASCO") %>%
+    select(temp) %>% pull()
 
+data <- tidydata %>% filter(dep == "PASCO") %>%
+    mutate(temp = temp)
+
+p1 <- data %>%
+    ggplot(aes(x = year,y = 1, fill = temp)) +
+    geom_tile() +
+    scale_fill_gradientn(
+      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
+      na.value = "transparent"
+    ) +
+    theme_void() +
+    labs(
+      subtitle = "(1958-2020)",
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
+    ) +
+    labs(title = "PASCO")
+ggplotly(p1) %>% 
+  config(displayModeBar = F) %>% 
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
 ```
 
 #### PIURA
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+ref <- temp_ref %>% filter(dep == "PIURA") %>%
+    select(temp) %>% pull()
 
+data <- tidydata %>% filter(dep == "PIURA") %>%
+    mutate(temp = temp)
+
+p1 <- data %>%
+    ggplot(aes(x = year,y = 1, fill = temp)) +
+    geom_tile() +
+    scale_fill_gradientn(
+      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
+      na.value = "transparent"
+    ) +
+    theme_void() +
+    labs(
+      subtitle = "(1958-2020)",
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
+    ) +
+    labs(title = "PIURA")
+ggplotly(p1) %>% 
+  config(displayModeBar = F) %>% 
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
 ```
 
 #### PUNO
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+ref <- temp_ref %>% filter(dep == "PUNO") %>%
+    select(temp) %>% pull()
 
+data <- tidydata %>% filter(dep == "PUNO") %>%
+    mutate(temp = temp)
+
+p1 <- data %>%
+    ggplot(aes(x = year,y = 1, fill = temp)) +
+    geom_tile() +
+    scale_fill_gradientn(
+      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
+      na.value = "transparent"
+    ) +
+    theme_void() +
+    labs(
+      subtitle = "(1958-2020)",
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
+    ) +
+    labs(title = "PUNO")
+ggplotly(p1) %>% 
+  config(displayModeBar = F) %>% 
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
 ```
 
 
 #### SAN MARTIN
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+ref <- temp_ref %>% filter(dep == "SAN MARTIN") %>%
+    select(temp) %>% pull()
 
+data <- tidydata %>% filter(dep == "SAN MARTIN") %>%
+    mutate(temp = temp)
+
+p1 <- data %>%
+    ggplot(aes(x = year,y = 1, fill = temp)) +
+    geom_tile() +
+    scale_fill_gradientn(
+      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
+      na.value = "transparent"
+    ) +
+    theme_void() +
+    labs(
+      subtitle = "(1958-2020)",
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
+    ) +
+    labs(title = "SAN MARTIN")
+ggplotly(p1) %>% 
+  config(displayModeBar = F) %>% 
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
 ```
 
 #### TACNA
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+ref <- temp_ref %>% filter(dep == "TACNA") %>%
+    select(temp) %>% pull()
 
+data <- tidydata %>% filter(dep == "TACNA") %>%
+    mutate(temp = temp)
+
+p1 <- data %>%
+    ggplot(aes(x = year,y = 1, fill = temp)) +
+    geom_tile() +
+    scale_fill_gradientn(
+      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
+      na.value = "transparent"
+    ) +
+    theme_void() +
+    labs(
+      subtitle = "(1958-2020)",
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
+    ) +
+    labs(title = "TACNA")
+ggplotly(p1) %>% 
+  config(displayModeBar = F) %>% 
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
 ```
 
 #### TUMBES
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+ref <- temp_ref %>% filter(dep == "TUMBES") %>%
+    select(temp) %>% pull()
 
+data <- tidydata %>% filter(dep == "TUMBES") %>%
+    mutate(temp = temp)
+
+p1 <- data %>%
+    ggplot(aes(x = year,y = 1, fill = temp)) +
+    geom_tile() +
+    scale_fill_gradientn(
+      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
+      na.value = "transparent"
+    ) +
+    theme_void() +
+    labs(
+      subtitle = "(1958-2020)",
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
+    ) +
+    labs(title = "TUMBES")
+ggplotly(p1) %>% 
+  config(displayModeBar = F) %>% 
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
 ```
 
 #### UCAYALI
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+ref <- temp_ref %>% filter(dep == "UCAYALI") %>%
+    select(temp) %>% pull()
 
+data <- tidydata %>% filter(dep == "UCAYALI") %>%
+    mutate(temp = temp)
+
+p1 <- data %>%
+    ggplot(aes(x = year,y = 1, fill = temp)) +
+    geom_tile() +
+    scale_fill_gradientn(
+      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
+      na.value = "transparent"
+    ) +
+    theme_void() +
+    labs(
+      subtitle = "(1958-2020)",
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
+    ) +
+    labs(title = "UCAYALI")
+ggplotly(p1) %>% 
+  config(displayModeBar = F) %>% 
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
 ```
 
 
