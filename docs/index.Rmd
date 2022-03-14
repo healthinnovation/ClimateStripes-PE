@@ -1,0 +1,176 @@
+---
+title: "Climate Stripes para las 24 regiones de Perú"
+author: "Gabriel Carrasco y Antony Barja"
+date: "`r Sys.Date()`"
+output:
+  rmdformats::downcute:
+    self_contained: true
+    default_style: "light"
+    downcute_theme: "default"
+---
+
+```{r setup, include=FALSE}
+## Global options
+knitr::opts_chunk$set(cache = TRUE)
+```
+
+### 1. Metodología
+
+### 2. Datos 
+
+
+### 3. Resultados {.tabset}
+
+#### AMAZONAS
+
+```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+
+```
+
+
+#### ANCASH
+
+```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+
+```
+
+#### APURIMAC
+
+```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+
+```
+
+#### AREQUIPA
+
+```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+
+```
+
+#### AYACUCHO
+
+```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+
+```
+
+#### CAJAMARCA
+
+```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+
+```
+
+#### CUSCO
+
+```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+
+```
+
+#### HUANCAVELICA
+
+```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+
+```
+
+#### HUANUCO
+
+```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+
+```
+
+#### ICA
+
+```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+
+```
+
+#### JUNIN
+
+```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+
+```
+
+#### LA LIBERTAD
+
+```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+
+```
+
+
+#### LAMBAYEQUE
+
+```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+
+```
+
+
+#### LIMA
+
+```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+
+```
+
+#### LORETO
+
+```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+
+```
+
+#### MADRE DE DIOS
+
+```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+
+```
+
+#### MOQUEGUA
+
+```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+
+```
+
+#### PASCO
+
+```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+
+```
+
+#### PIURA
+
+```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+
+```
+
+#### PUNO
+
+```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+
+```
+
+
+#### SAN MARTIN
+
+```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+
+```
+
+#### TACNA
+
+```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+
+```
+
+#### TUMBES
+
+```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+
+```
+
+#### UCAYALI
+
+```{r ,echo=FALSE,warning=FALSE,message=FALSE}
+
+```
+
+
+
+
+
+
