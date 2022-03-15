@@ -4,8 +4,7 @@ author: "Gabriel Carrasco y Antony Barja"
 date: "`r Sys.Date()`"
 output:
   rmdformats::downcute:
-    self_contained: false
-    default_style: "light"
+    self_contained: true
     downcute_theme: "default"
 ---
 
@@ -46,20 +45,20 @@ names <- tidydata %>% select(dep) %>% unique()
 
 ### 1. Metodología
 
-> Los valores de temperatura máxima estimado para cada uno de los 24 departamentos del Perú desde el año de 1980 al 2022, fueron calculados mediante estadisticas areales, donde el promedio anual de todos pixeles entrantantes en las respectivas regiones durante los ultimos 42 años fueron consideradas para su estimación, para posteriormente ser gráficados mediante los **Stripes** o **rayas de Ed Hawkins**.
-Las Stripes son representaciones visuales donde se evalua la evolución de las  temperaturas medias para cada una de las regiones de interés  durante los últimos 42 años.
+> Los valores de temperatura máxima estimado para cada uno de los 24 departamentos del Perú desde el año de 1958 al 2020, fueron calculados mediante estadisticas areales, donde el promedio anual de todos pixeles entrantantes en las respectivas regiones durante los ultimos 62 años fueron consideradas para su estimación, para posteriormente ser gráficados mediante los **Stripes** o **rayas de Ed Hawkins**.
+Las Stripes son representaciones visuales donde se evalua la evolución de las  temperaturas medias para cada una de las regiones de interés.
 
 <img src="./workflow.svg" width="100%">
 
 ### 2. Datos 
 
-Los valores de temperatura máxima obtenidas durante  los últimos 42 años, fueron adquiridas del conjunto de datos de TerraClimate, un conjunto de datos de clima mensual y balance hídrico climático para superficies terrestres globales, más información [*clic aquí*](https://developers.google.com/earth-engine/datasets/catalog/IDAHO_EPSCOR_TERRACLIMATE#description). 
+Los valores de temperatura máxima obtenidas durante  los últimos 62 años, fueron adquiridas del conjunto de datos de TerraClimate, un conjunto de datos de clima mensual y balance hídrico climático para superficies terrestres globales, más información [*clic aquí*](https://developers.google.com/earth-engine/datasets/catalog/IDAHO_EPSCOR_TERRACLIMATE#description). 
 
 ### 3. Resultados {.tabset}
 
 #### AMAZONAS
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="100%",fig.height=3}
 ref <- temp_ref %>% filter(dep == "AMAZONAS") %>%
     select(temp) %>% pull()
 
@@ -79,15 +78,26 @@ p1 <- data %>%
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
     ) +
     labs(title = "AMAZONAS")
-ggplotly(p1) %>% 
+
+Noax <- list(
+  zeroline = FALSE,
+  showline = FALSE,
+  showticklabels = FALSE,
+  showgrid = FALSE
+)
+
+ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
+  layout(xaxis = Noax, 
+         yaxis = Noax)
+
 ```
 
 
 #### ANCASH
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="100%",fig.height=3}
 ref <- temp_ref %>% filter(dep == "ANCASH") %>%
     select(temp) %>% pull()
 
@@ -107,14 +117,16 @@ p1 <- data %>%
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
     ) +
     labs(title = "ANCASH")
-ggplotly(p1) %>% 
+ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
+  layout(xaxis = Noax, 
+         yaxis = Noax)
 ```
 
 #### APURIMAC
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="100%",fig.height=3}
 ref <- temp_ref %>% filter(dep == "APURIMAC") %>%
     select(temp) %>% pull()
 
@@ -134,14 +146,17 @@ p1 <- data %>%
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
     ) +
     labs(title = "APURIMAC")
-ggplotly(p1) %>% 
+
+ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
+  layout(xaxis = Noax, 
+         yaxis = Noax)
 ```
 
 #### AREQUIPA
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="100%",fig.height=3}
 ref <- temp_ref %>% filter(dep == "AREQUIPA") %>%
     select(temp) %>% pull()
 
@@ -161,14 +176,17 @@ p1 <- data %>%
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
     ) +
     labs(title = "AREQUIPA")
-ggplotly(p1) %>% 
+
+ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
+  layout(xaxis = Noax, 
+         yaxis = Noax)
 ```
 
 #### AYACUCHO
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="100%",fig.height=3}
 ref <- temp_ref %>% filter(dep == "AYACUCHO") %>%
     select(temp) %>% pull()
 
@@ -188,14 +206,17 @@ p1 <- data %>%
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
     ) +
     labs(title = "AYACUCHO")
-ggplotly(p1) %>% 
+
+ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
+  layout(xaxis = Noax, 
+         yaxis = Noax)
 ```
 
 #### CAJAMARCA
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="100%",fig.height=3}
 ref <- temp_ref %>% filter(dep == "CAJAMARCA") %>%
     select(temp) %>% pull()
 
@@ -215,14 +236,17 @@ p1 <- data %>%
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
     ) +
     labs(title = "CAJAMARCA")
-ggplotly(p1) %>% 
+
+ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
+  layout(xaxis = Noax, 
+         yaxis = Noax)
 ```
 
 #### CUSCO
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="100%",fig.height=3}
 ref <- temp_ref %>% filter(dep == "CUSCO") %>%
     select(temp) %>% pull()
 
@@ -242,14 +266,17 @@ p1 <- data %>%
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
     ) +
     labs(title = "CUSCO")
-ggplotly(p1) %>% 
+
+ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
+  layout(xaxis = Noax, 
+         yaxis = Noax)
 ```
 
 #### HUANCAVELICA
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="100%",fig.height=3}
 ref <- temp_ref %>% filter(dep == "HUANCAVELICA") %>%
     select(temp) %>% pull()
 
@@ -269,14 +296,17 @@ p1 <- data %>%
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
     ) +
     labs(title = "HUANCAVELICA")
-ggplotly(p1) %>% 
+
+ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
+  layout(xaxis = Noax, 
+         yaxis = Noax)
 ```
 
 #### HUANUCO
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="100%",fig.height=3}
 ref <- temp_ref %>% filter(dep == "HUANUCO") %>%
     select(temp) %>% pull()
 
@@ -296,14 +326,17 @@ p1 <- data %>%
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
     ) +
     labs(title = "HUANUCO")
-ggplotly(p1) %>% 
+
+ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
+  layout(xaxis = Noax, 
+         yaxis = Noax)
 ```
 
 #### ICA
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="100%",fig.height=3}
 ref <- temp_ref %>% filter(dep == "ICA") %>%
     select(temp) %>% pull()
 
@@ -323,14 +356,17 @@ p1 <- data %>%
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
     ) +
     labs(title = "ICA")
-ggplotly(p1) %>% 
+
+ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
+  layout(xaxis = Noax, 
+         yaxis = Noax)
 ```
 
 #### JUNIN
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="100%",fig.height=3}
 ref <- temp_ref %>% filter(dep == "JUNIN") %>%
     select(temp) %>% pull()
 
@@ -350,14 +386,17 @@ p1 <- data %>%
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
     ) +
     labs(title = "JUNIN")
-ggplotly(p1) %>% 
+
+ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
+  layout(xaxis = Noax, 
+         yaxis = Noax)
 ```
 
 #### LA LIBERTAD
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="100%",fig.height=3}
 ref <- temp_ref %>% filter(dep == "LA LIBERTAD") %>%
     select(temp) %>% pull()
 
@@ -377,15 +416,18 @@ p1 <- data %>%
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
     ) +
     labs(title = "LA LIBERTAD")
-ggplotly(p1) %>% 
+
+ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
+  layout(xaxis = Noax, 
+         yaxis = Noax)
 ```
 
 
 #### LAMBAYEQUE
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="100%",fig.height=3}
 ref <- temp_ref %>% filter(dep == "LAMBAYEQUE") %>%
     select(temp) %>% pull()
 
@@ -405,15 +447,18 @@ p1 <- data %>%
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
     ) +
     labs(title = "LAMBAYEQUE")
-ggplotly(p1) %>% 
+
+ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
+  layout(xaxis = Noax, 
+         yaxis = Noax)
 ```
 
 
 #### LIMA
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="100%",fig.height=3}
 ref <- temp_ref %>% filter(dep == "LIMA") %>%
     select(temp) %>% pull()
 
@@ -433,14 +478,17 @@ p1 <- data %>%
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
     ) +
     labs(title = "LIMA")
-ggplotly(p1) %>% 
+
+ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
+  layout(xaxis = Noax, 
+         yaxis = Noax)
 ```
 
 #### LORETO
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="100%",fig.height=3}
 ref <- temp_ref %>% filter(dep == "LORETO") %>%
     select(temp) %>% pull()
 
@@ -460,14 +508,17 @@ p1 <- data %>%
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
     ) +
     labs(title = "LORETO")
-ggplotly(p1) %>% 
+
+ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
+  layout(xaxis = Noax, 
+         yaxis = Noax)
 ```
 
 #### MADRE DE DIOS
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="100%",fig.height=3}
 ref <- temp_ref %>% filter(dep == "MADRE DE DIOS") %>%
     select(temp) %>% pull()
 
@@ -487,14 +538,17 @@ p1 <- data %>%
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
     ) +
     labs(title = "MADRE DE DIOS")
-ggplotly(p1) %>% 
+
+ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
+  layout(xaxis = Noax, 
+         yaxis = Noax)
 ```
 
 #### MOQUEGUA
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="100%",fig.height=3}
 ref <- temp_ref %>% filter(dep == "MOQUEGUA") %>%
     select(temp) %>% pull()
 
@@ -514,14 +568,17 @@ p1 <- data %>%
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
     ) +
     labs(title = "MOQUEGUA")
-ggplotly(p1) %>% 
+
+ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
+  layout(xaxis = Noax, 
+         yaxis = Noax)
 ```
 
 #### PASCO
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="100%",fig.height=3}
 ref <- temp_ref %>% filter(dep == "PASCO") %>%
     select(temp) %>% pull()
 
@@ -541,14 +598,17 @@ p1 <- data %>%
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
     ) +
     labs(title = "PASCO")
-ggplotly(p1) %>% 
+
+ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
+  layout(xaxis = Noax, 
+         yaxis = Noax)
 ```
 
 #### PIURA
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="100%",fig.height=3}
 ref <- temp_ref %>% filter(dep == "PIURA") %>%
     select(temp) %>% pull()
 
@@ -568,14 +628,17 @@ p1 <- data %>%
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
     ) +
     labs(title = "PIURA")
-ggplotly(p1) %>% 
+
+ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
+  layout(xaxis = Noax, 
+         yaxis = Noax)
 ```
 
 #### PUNO
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="100%",fig.height=3}
 ref <- temp_ref %>% filter(dep == "PUNO") %>%
     select(temp) %>% pull()
 
@@ -595,15 +658,18 @@ p1 <- data %>%
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
     ) +
     labs(title = "PUNO")
-ggplotly(p1) %>% 
+
+ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
+  layout(xaxis = Noax, 
+         yaxis = Noax)
 ```
 
 
 #### SAN MARTIN
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="100%",fig.height=3}
 ref <- temp_ref %>% filter(dep == "SAN MARTIN") %>%
     select(temp) %>% pull()
 
@@ -623,14 +689,17 @@ p1 <- data %>%
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
     ) +
     labs(title = "SAN MARTIN")
-ggplotly(p1) %>% 
+
+ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
+  layout(xaxis = Noax, 
+         yaxis = Noax)
 ```
 
 #### TACNA
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="100%",fig.height=3}
 ref <- temp_ref %>% filter(dep == "TACNA") %>%
     select(temp) %>% pull()
 
@@ -650,14 +719,17 @@ p1 <- data %>%
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
     ) +
     labs(title = "TACNA")
-ggplotly(p1) %>% 
+
+ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
+  layout(xaxis = Noax, 
+         yaxis = Noax)
 ```
 
 #### TUMBES
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="100%",fig.height=3}
 ref <- temp_ref %>% filter(dep == "TUMBES") %>%
     select(temp) %>% pull()
 
@@ -677,14 +749,17 @@ p1 <- data %>%
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
     ) +
     labs(title = "TUMBES")
-ggplotly(p1) %>% 
+
+ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
+  layout(xaxis = Noax, 
+         yaxis = Noax)
 ```
 
 #### UCAYALI
 
-```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="80%",fig.height=3}
+```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="100%",fig.height=3}
 ref <- temp_ref %>% filter(dep == "UCAYALI") %>%
     select(temp) %>% pull()
 
@@ -704,9 +779,12 @@ p1 <- data %>%
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
     ) +
     labs(title = "UCAYALI")
-ggplotly(p1) %>% 
+
+ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
+  layout(xaxis = Noax, 
+         yaxis = Noax)
 ```
 
 
