@@ -3,10 +3,13 @@ title: "Climate Stripes para las 24 regiones de Perú"
 author: "Gabriel Carrasco y Antony Barja"
 date: "`r Sys.Date()`"
 output:
-  rmdformats::downcute:
-    self_contained: true
-    downcute_theme: "default"
+   rmdformats::downcute:
+     self_contained: true
+     thumbnails: false
+     lightbox: true
+     toc_depth : 3
 ---
+
 
 ```{r setup, include=FALSE}
 ## Global options
@@ -17,6 +20,7 @@ knitr::opts_chunk$set(cache = TRUE)
 library(tidyverse)
 library(cptcity)
 library(plotly)
+library(lubridate)
 temp <- read_rds("data/temp")
 tidydata <- temp %>%
   pivot_longer(cols = `tmmx1958-01`:`tmmx2020-11`) %>%
@@ -72,12 +76,17 @@ p1 <- data %>%
       colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
       na.value = "transparent"
     ) +
-    theme_void() +
     labs(
       subtitle = "(1958-2020)",
-      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
+      x = "",
+      y = ""
     ) +
-    labs(title = "AMAZONAS")
+    labs(title = "AMAZONAS") + 
+  scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
+  theme(panel.background = element_blank(),
+        panel.grid = element_blank(),
+        axis.ticks = element_blank())
 
 Noax <- list(
   zeroline = FALSE,
@@ -88,9 +97,12 @@ Noax <- list(
 
 ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
-  layout(xaxis = Noax, 
-         yaxis = Noax)
+  layout(yaxis = Noax) %>% 
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+  layout(title = list(text = paste0('AMAZONAS',
+                                    '<br>',
+                                    '<sup>',
+                                     '(1958-2020)','</sup>')))
 
 ```
 
@@ -111,22 +123,32 @@ p1 <- data %>%
       colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
       na.value = "transparent"
     ) +
-    theme_void() +
     labs(
       subtitle = "(1958-2020)",
-      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
+      x = "",
+      y = ""
     ) +
-    labs(title = "ANCASH")
+    labs(title = "ANCASH") + 
+    scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
+  theme(panel.background = element_blank(),
+        panel.grid = element_blank(),
+        axis.ticks = element_blank())
+
 ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
-  layout(xaxis = Noax, 
-         yaxis = Noax)
+  layout(yaxis = Noax) %>% 
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+  layout(title = list(text = paste0('ANCASH',
+                                    '<br>',
+                                    '<sup>',
+                                     '(1958-2020)','</sup>')))
 ```
 
 #### APURIMAC
 
 ```{r ,echo=FALSE,warning=FALSE,message=FALSE, out.width="100%",fig.height=3}
+
 ref <- temp_ref %>% filter(dep == "APURIMAC") %>%
     select(temp) %>% pull()
 
@@ -140,18 +162,22 @@ p1 <- data %>%
       colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
       na.value = "transparent"
     ) +
-    theme_void() +
     labs(
       subtitle = "(1958-2020)",
-      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
+      x = "",
+      y = ""
     ) +
     labs(title = "APURIMAC")
 
 ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
-  layout(xaxis = Noax, 
-         yaxis = Noax)
+  layout(yaxis = Noax) %>% 
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+  layout(title = list(text = paste0('APURIMAC',
+                                    '<br>',
+                                    '<sup>',
+                                     '(1958-2020)','</sup>')))
 ```
 
 #### AREQUIPA
@@ -170,18 +196,23 @@ p1 <- data %>%
       colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
       na.value = "transparent"
     ) +
-    theme_void() +
+
     labs(
       subtitle = "(1958-2020)",
-      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
+      x = "", 
+      y = ""
     ) +
     labs(title = "AREQUIPA")
 
 ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
-  layout(xaxis = Noax, 
-         yaxis = Noax)
+  layout(yaxis = Noax) %>% 
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+  layout(title = list(text = paste0('AREQUIPA',
+                                    '<br>',
+                                    '<sup>',
+                                     '(1958-2020)','</sup>')))
 ```
 
 #### AYACUCHO
@@ -200,18 +231,23 @@ p1 <- data %>%
       colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
       na.value = "transparent"
     ) +
-    theme_void() +
+
     labs(
       subtitle = "(1958-2020)",
-      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
-    ) +
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
+      x = "", 
+      y = ""
+    )+
     labs(title = "AYACUCHO")
 
 ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
-  layout(xaxis = Noax, 
-         yaxis = Noax)
+  layout(yaxis = Noax) %>% 
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+  layout(title = list(text = paste0('AYACUCHO',
+                                    '<br>',
+                                    '<sup>',
+                                     '(1958-2020)','</sup>')))
 ```
 
 #### CAJAMARCA
@@ -230,18 +266,23 @@ p1 <- data %>%
       colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
       na.value = "transparent"
     ) +
-    theme_void() +
+
     labs(
       subtitle = "(1958-2020)",
-      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
+      x = "", 
+      y = ""
     ) +
     labs(title = "CAJAMARCA")
 
 ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
-  layout(xaxis = Noax, 
-         yaxis = Noax)
+  layout(yaxis = Noax) %>% 
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+  layout(title = list(text = paste0('CAJAMARCA',
+                                    '<br>',
+                                    '<sup>',
+                                     '(1958-2020)','</sup>')))
 ```
 
 #### CUSCO
@@ -260,18 +301,23 @@ p1 <- data %>%
       colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
       na.value = "transparent"
     ) +
-    theme_void() +
+
     labs(
       subtitle = "(1958-2020)",
-      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
+      x = "", 
+      y = ""
     ) +
     labs(title = "CUSCO")
 
 ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
-  layout(xaxis = Noax, 
-         yaxis = Noax)
+  layout(yaxis = Noax) %>% 
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+  layout(title = list(text = paste0('CUSCO',
+                                    '<br>',
+                                    '<sup>',
+                                     '(1958-2020)','</sup>')))
 ```
 
 #### HUANCAVELICA
@@ -290,18 +336,23 @@ p1 <- data %>%
       colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
       na.value = "transparent"
     ) +
-    theme_void() +
+
     labs(
       subtitle = "(1958-2020)",
-      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
+      x = "", 
+      y = ""
     ) +
     labs(title = "HUANCAVELICA")
 
 ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
-  layout(xaxis = Noax, 
-         yaxis = Noax)
+  layout(yaxis = Noax) %>% 
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+  layout(title = list(text = paste0('HUANCAVELICA',
+                                    '<br>',
+                                    '<sup>',
+                                     '(1958-2020)','</sup>')))
 ```
 
 #### HUANUCO
@@ -320,18 +371,23 @@ p1 <- data %>%
       colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
       na.value = "transparent"
     ) +
-    theme_void() +
+
     labs(
       subtitle = "(1958-2020)",
-      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
+      x = "", 
+      y = ""
     ) +
     labs(title = "HUANUCO")
 
 ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
-  layout(xaxis = Noax, 
-         yaxis = Noax)
+  layout(yaxis = Noax) %>% 
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+  layout(title = list(text = paste0('HUANUCO',
+                                    '<br>',
+                                    '<sup>',
+                                     '(1958-2020)','</sup>')))
 ```
 
 #### ICA
@@ -350,18 +406,23 @@ p1 <- data %>%
       colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
       na.value = "transparent"
     ) +
-    theme_void() +
+
     labs(
       subtitle = "(1958-2020)",
-      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
-    ) +
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
+      x = "", 
+      y = ""
+    )+
     labs(title = "ICA")
 
 ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
-  layout(xaxis = Noax, 
-         yaxis = Noax)
+  layout(yaxis = Noax) %>% 
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+  layout(title = list(text = paste0('ICA',
+                                    '<br>',
+                                    '<sup>',
+                                     '(1958-2020)','</sup>')))
 ```
 
 #### JUNIN
@@ -380,18 +441,23 @@ p1 <- data %>%
       colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
       na.value = "transparent"
     ) +
-    theme_void() +
+
     labs(
       subtitle = "(1958-2020)",
-      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
-    ) +
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
+      x = "", 
+      y = ""
+    )+
     labs(title = "JUNIN")
 
 ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
-  layout(xaxis = Noax, 
-         yaxis = Noax)
+  layout(yaxis = Noax) %>% 
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+  layout(title = list(text = paste0('JUNIN',
+                                    '<br>',
+                                    '<sup>',
+                                     '(1958-2020)','</sup>')))
 ```
 
 #### LA LIBERTAD
@@ -410,18 +476,23 @@ p1 <- data %>%
       colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
       na.value = "transparent"
     ) +
-    theme_void() +
+
     labs(
       subtitle = "(1958-2020)",
-      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
-    ) +
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
+      x = "", 
+      y = ""
+    )+
     labs(title = "LA LIBERTAD")
 
 ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
-  layout(xaxis = Noax, 
-         yaxis = Noax)
+  layout(yaxis = Noax) %>% 
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+  layout(title = list(text = paste0('LA LIBERTAD',
+                                    '<br>',
+                                    '<sup>',
+                                     '(1958-2020)','</sup>')))
 ```
 
 
@@ -441,18 +512,23 @@ p1 <- data %>%
       colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
       na.value = "transparent"
     ) +
-    theme_void() +
+
     labs(
       subtitle = "(1958-2020)",
-      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
+      x = "", 
+      y = ""
     ) +
     labs(title = "LAMBAYEQUE")
 
 ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
-  layout(xaxis = Noax, 
-         yaxis = Noax)
+  layout(yaxis = Noax) %>% 
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+  layout(title = list(text = paste0('LAMBAYEQUE',
+                                    '<br>',
+                                    '<sup>',
+                                     '(1958-2020)','</sup>')))
 ```
 
 
@@ -472,18 +548,23 @@ p1 <- data %>%
       colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
       na.value = "transparent"
     ) +
-    theme_void() +
+
     labs(
       subtitle = "(1958-2020)",
-      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
+      x = "", 
+      y = ""
     ) +
     labs(title = "LIMA")
 
 ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
-  layout(xaxis = Noax, 
-         yaxis = Noax)
+  layout(yaxis = Noax) %>% 
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+  layout(title = list(text = paste0('LIMA',
+                                    '<br>',
+                                    '<sup>',
+                                     '(1958-2020)','</sup>')))
 ```
 
 #### LORETO
@@ -502,18 +583,23 @@ p1 <- data %>%
       colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
       na.value = "transparent"
     ) +
-    theme_void() +
+
     labs(
       subtitle = "(1958-2020)",
-      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
-    ) +
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
+      x = "", 
+      y = ""
+    )+
     labs(title = "LORETO")
 
 ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
-  layout(xaxis = Noax, 
-         yaxis = Noax)
+  layout(yaxis = Noax) %>% 
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+  layout(title = list(text = paste0('LORETO',
+                                    '<br>',
+                                    '<sup>',
+                                     '(1958-2020)','</sup>')))
 ```
 
 #### MADRE DE DIOS
@@ -532,18 +618,23 @@ p1 <- data %>%
       colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
       na.value = "transparent"
     ) +
-    theme_void() +
+
     labs(
       subtitle = "(1958-2020)",
-      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
+      x = "", 
+      y = ""
     ) +
     labs(title = "MADRE DE DIOS")
 
 ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
-  layout(xaxis = Noax, 
-         yaxis = Noax)
+  layout(yaxis = Noax) %>% 
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+  layout(title = list(text = paste0('MADRE DE DIOS',
+                                    '<br>',
+                                    '<sup>',
+                                     '(1958-2020)','</sup>')))
 ```
 
 #### MOQUEGUA
@@ -562,18 +653,23 @@ p1 <- data %>%
       colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
       na.value = "transparent"
     ) +
-    theme_void() +
+
     labs(
       subtitle = "(1958-2020)",
-      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
+      x = "", 
+      y = ""
     ) +
     labs(title = "MOQUEGUA")
 
 ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
-  layout(xaxis = Noax, 
-         yaxis = Noax)
+  layout(yaxis = Noax) %>% 
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+  layout(title = list(text = paste0('MOQUEGUA',
+                                    '<br>',
+                                    '<sup>',
+                                     '(1958-2020)','</sup>')))
 ```
 
 #### PASCO
@@ -592,18 +688,23 @@ p1 <- data %>%
       colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
       na.value = "transparent"
     ) +
-    theme_void() +
+
     labs(
       subtitle = "(1958-2020)",
-      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
+      x = "", 
+      y = ""
     ) +
     labs(title = "PASCO")
 
 ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
-  layout(xaxis = Noax, 
-         yaxis = Noax)
+  layout(yaxis = Noax) %>% 
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+  layout(title = list(text = paste0('PASCO',
+                                    '<br>',
+                                    '<sup>',
+                                     '(1958-2020)','</sup>')))
 ```
 
 #### PIURA
@@ -622,18 +723,23 @@ p1 <- data %>%
       colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
       na.value = "transparent"
     ) +
-    theme_void() +
+
     labs(
       subtitle = "(1958-2020)",
-      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
+      x = "", 
+      y = ""
     ) +
     labs(title = "PIURA")
 
 ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
-  layout(xaxis = Noax, 
-         yaxis = Noax)
+  layout(yaxis = Noax) %>% 
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+  layout(title = list(text = paste0('PIURA',
+                                    '<br>',
+                                    '<sup>',
+                                     '(1958-2020)','</sup>')))
 ```
 
 #### PUNO
@@ -652,18 +758,23 @@ p1 <- data %>%
       colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
       na.value = "transparent"
     ) +
-    theme_void() +
+
     labs(
       subtitle = "(1958-2020)",
-      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
+      x = "", 
+      y = ""
     ) +
     labs(title = "PUNO")
 
 ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
-  layout(xaxis = Noax, 
-         yaxis = Noax)
+  layout(yaxis = Noax) %>% 
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+  layout(title = list(text = paste0('PUNO',
+                                    '<br>',
+                                    '<sup>',
+                                     '(1958-2020)','</sup>')))
 ```
 
 
@@ -683,18 +794,23 @@ p1 <- data %>%
       colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
       na.value = "transparent"
     ) +
-    theme_void() +
+
     labs(
       subtitle = "(1958-2020)",
-      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
+      x = "", 
+      y = ""
     ) +
     labs(title = "SAN MARTIN")
 
 ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
-  layout(xaxis = Noax, 
-         yaxis = Noax)
+  layout(yaxis = Noax) %>% 
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+  layout(title = list(text = paste0('SAN MARTIN',
+                                    '<br>',
+                                    '<sup>',
+                                     '(1958-2020)','</sup>')))
 ```
 
 #### TACNA
@@ -713,18 +829,23 @@ p1 <- data %>%
       colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
       na.value = "transparent"
     ) +
-    theme_void() +
+
     labs(
       subtitle = "(1958-2020)",
-      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
+      x = "", 
+      y = ""
     ) +
     labs(title = "TACNA")
 
 ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
-  layout(xaxis = Noax, 
-         yaxis = Noax)
+  layout(yaxis = Noax) %>% 
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+  layout(title = list(text = paste0('TACNA',
+                                    '<br>',
+                                    '<sup>',
+                                     '(1958-2020)','</sup>')))
 ```
 
 #### TUMBES
@@ -743,18 +864,23 @@ p1 <- data %>%
       colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
       na.value = "transparent"
     ) +
-    theme_void() +
+
     labs(
       subtitle = "(1958-2020)",
-      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
+      x = "", 
+      y = ""
     ) +
     labs(title = "TUMBES")
 
 ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
-  layout(xaxis = Noax, 
-         yaxis = Noax)
+  layout(yaxis = Noax) %>% 
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+  layout(title = list(text = paste0('TUMBES',
+                                    '<br>',
+                                    '<sup>',
+                                     '(1958-2020)','</sup>')))
 ```
 
 #### UCAYALI
@@ -773,18 +899,23 @@ p1 <- data %>%
       colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
       na.value = "transparent"
     ) +
-    theme_void() +
+
     labs(
       subtitle = "(1958-2020)",
-      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim"
+      caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
+      x = "", 
+      y = ""
     ) +
     labs(title = "UCAYALI")
 
 ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) %>% 
-  layout(xaxis = Noax, 
-         yaxis = Noax)
+  layout(yaxis = Noax) %>% 
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+  layout(title = list(text = paste0('UCAYALI',
+                                    '<br>',
+                                    '<sup>',
+                                     '(1958-2020)','</sup>')))
 ```
 
 
