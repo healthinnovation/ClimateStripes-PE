@@ -168,7 +168,11 @@ p1 <- data %>%
       x = "",
       y = ""
     ) +
-    labs(title = "APURIMAC")
+    labs(title = "APURIMAC") + 
+    scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
+  theme(panel.background = element_blank(),
+        panel.grid = element_blank(),
+        axis.ticks = element_blank())
 
 ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
@@ -203,7 +207,11 @@ p1 <- data %>%
       x = "", 
       y = ""
     ) +
-    labs(title = "AREQUIPA")
+    labs(title = "AREQUIPA")+ 
+    scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
+  theme(panel.background = element_blank(),
+        panel.grid = element_blank(),
+        axis.ticks = element_blank())
 
 ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
@@ -238,7 +246,11 @@ p1 <- data %>%
       x = "", 
       y = ""
     )+
-    labs(title = "AYACUCHO")
+    labs(title = "AYACUCHO")+ 
+    scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
+  theme(panel.background = element_blank(),
+        panel.grid = element_blank(),
+        axis.ticks = element_blank())
 
 ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
@@ -273,7 +285,11 @@ p1 <- data %>%
       x = "", 
       y = ""
     ) +
-    labs(title = "CAJAMARCA")
+    labs(title = "CAJAMARCA")+ 
+    scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
+  theme(panel.background = element_blank(),
+        panel.grid = element_blank(),
+        axis.ticks = element_blank())
 
 ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
@@ -308,7 +324,11 @@ p1 <- data %>%
       x = "", 
       y = ""
     ) +
-    labs(title = "CUSCO")
+    labs(title = "CUSCO")+ 
+    scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
+  theme(panel.background = element_blank(),
+        panel.grid = element_blank(),
+        axis.ticks = element_blank())
 
 ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
@@ -343,7 +363,11 @@ p1 <- data %>%
       x = "", 
       y = ""
     ) +
-    labs(title = "HUANCAVELICA")
+    labs(title = "HUANCAVELICA")+ 
+    scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
+  theme(panel.background = element_blank(),
+        panel.grid = element_blank(),
+        axis.ticks = element_blank())
 
 ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
@@ -378,7 +402,11 @@ p1 <- data %>%
       x = "", 
       y = ""
     ) +
-    labs(title = "HUANUCO")
+    labs(title = "HUANUCO")+ 
+    scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
+  theme(panel.background = element_blank(),
+        panel.grid = element_blank(),
+        axis.ticks = element_blank())
 
 ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
@@ -413,7 +441,11 @@ p1 <- data %>%
       x = "", 
       y = ""
     )+
-    labs(title = "ICA")
+    labs(title = "ICA")+ 
+    scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
+  theme(panel.background = element_blank(),
+        panel.grid = element_blank(),
+        axis.ticks = element_blank())
 
 ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
@@ -448,7 +480,11 @@ p1 <- data %>%
       x = "", 
       y = ""
     )+
-    labs(title = "JUNIN")
+    labs(title = "JUNIN")+ 
+    scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
+  theme(panel.background = element_blank(),
+        panel.grid = element_blank(),
+        axis.ticks = element_blank())
 
 ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
@@ -483,7 +519,11 @@ p1 <- data %>%
       x = "", 
       y = ""
     )+
-    labs(title = "LA LIBERTAD")
+    labs(title = "LA LIBERTAD")+ 
+    scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
+  theme(panel.background = element_blank(),
+        panel.grid = element_blank(),
+        axis.ticks = element_blank())
 
 ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
@@ -519,7 +559,11 @@ p1 <- data %>%
       x = "", 
       y = ""
     ) +
-    labs(title = "LAMBAYEQUE")
+    labs(title = "LAMBAYEQUE")+ 
+    scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
+  theme(panel.background = element_blank(),
+        panel.grid = element_blank(),
+        axis.ticks = element_blank())
 
 ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
@@ -555,7 +599,11 @@ p1 <- data %>%
       x = "", 
       y = ""
     ) +
-    labs(title = "LIMA")
+    labs(title = "LIMA")+ 
+    scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
+  theme(panel.background = element_blank(),
+        panel.grid = element_blank(),
+        axis.ticks = element_blank())
 
 ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
@@ -590,7 +638,11 @@ p1 <- data %>%
       x = "", 
       y = ""
     )+
-    labs(title = "LORETO")
+    labs(title = "LORETO")+ 
+    scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
+  theme(panel.background = element_blank(),
+        panel.grid = element_blank(),
+        axis.ticks = element_blank())
 
 ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
@@ -625,7 +677,11 @@ p1 <- data %>%
       x = "", 
       y = ""
     ) +
-    labs(title = "MADRE DE DIOS")
+    labs(title = "MADRE DE DIOS")+ 
+    scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
+  theme(panel.background = element_blank(),
+        panel.grid = element_blank(),
+        axis.ticks = element_blank())
 
 ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
@@ -660,7 +716,11 @@ p1 <- data %>%
       x = "", 
       y = ""
     ) +
-    labs(title = "MOQUEGUA")
+    labs(title = "MOQUEGUA")+ 
+    scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
+  theme(panel.background = element_blank(),
+        panel.grid = element_blank(),
+        axis.ticks = element_blank())
 
 ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
@@ -695,7 +755,11 @@ p1 <- data %>%
       x = "", 
       y = ""
     ) +
-    labs(title = "PASCO")
+    labs(title = "PASCO")+ 
+    scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
+  theme(panel.background = element_blank(),
+        panel.grid = element_blank(),
+        axis.ticks = element_blank())
 
 ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
@@ -730,7 +794,11 @@ p1 <- data %>%
       x = "", 
       y = ""
     ) +
-    labs(title = "PIURA")
+    labs(title = "PIURA")+ 
+    scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
+  theme(panel.background = element_blank(),
+        panel.grid = element_blank(),
+        axis.ticks = element_blank())
 
 ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
@@ -765,7 +833,11 @@ p1 <- data %>%
       x = "", 
       y = ""
     ) +
-    labs(title = "PUNO")
+    labs(title = "PUNO")+ 
+    scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
+  theme(panel.background = element_blank(),
+        panel.grid = element_blank(),
+        axis.ticks = element_blank())
 
 ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
@@ -801,7 +873,11 @@ p1 <- data %>%
       x = "", 
       y = ""
     ) +
-    labs(title = "SAN MARTIN")
+    labs(title = "SAN MARTIN")+ 
+    scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
+  theme(panel.background = element_blank(),
+        panel.grid = element_blank(),
+        axis.ticks = element_blank())
 
 ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
@@ -836,7 +912,11 @@ p1 <- data %>%
       x = "", 
       y = ""
     ) +
-    labs(title = "TACNA")
+    labs(title = "TACNA")+ 
+    scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
+  theme(panel.background = element_blank(),
+        panel.grid = element_blank(),
+        axis.ticks = element_blank())
 
 ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
@@ -871,7 +951,11 @@ p1 <- data %>%
       x = "", 
       y = ""
     ) +
-    labs(title = "TUMBES")
+    labs(title = "TUMBES")+ 
+    scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
+  theme(panel.background = element_blank(),
+        panel.grid = element_blank(),
+        axis.ticks = element_blank())
 
 ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
@@ -906,7 +990,11 @@ p1 <- data %>%
       x = "", 
       y = ""
     ) +
-    labs(title = "UCAYALI")
+    labs(title = "UCAYALI") + 
+  scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
+  theme(panel.background = element_blank(),
+        panel.grid = element_blank(),
+        axis.ticks = element_blank())
 
 ggplotly(p1,tooltip = c("year","temp")) %>% 
   config(displayModeBar = F) %>% 
