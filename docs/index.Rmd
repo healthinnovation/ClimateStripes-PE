@@ -1,15 +1,14 @@
 ---
-title: "Climate Stripes para las 24 regiones de Perú"
+title: "Warming Stripes para las 24 regiones del Perú"
 author: "Gabriel Carrasco y Antony Barja"
 date: "`r Sys.Date()`"
 output:
-   rmdformats::downcute:
-     self_contained: true
-     thumbnails: false
-     lightbox: true
-     toc_depth : 3
+  rmdformats::downcute:
+    self_contained: true
+    thumbnails: false
+    lightbox: true
+    toc_depth: 3
 ---
-
 
 ```{r setup, include=FALSE}
 ## Global options
@@ -49,14 +48,13 @@ names <- tidydata %>% select(dep) %>% unique()
 
 ### 1. Metodología
 
-> Los valores de temperatura máxima estimado para cada uno de los 24 departamentos del Perú desde el año de 1958 al 2020, fueron calculados mediante estadisticas areales, donde el promedio anual de todos pixeles entrantantes en las respectivas regiones durante los ultimos 62 años fueron consideradas para su estimación, para posteriormente ser gráficados mediante los **Stripes** o **rayas de Ed Hawkins**.
-Las Stripes son representaciones visuales donde se evalua la evolución de las  temperaturas medias para cada una de las regiones de interés.
+> Los valores de temperatura máxima estimado para cada uno de los 24 departamentos del Perú desde el año de 1958 al 2020, fueron calculados mediante estadísticas areales, donde el valor máximo anual de todos pixeles en las respectivas regiones durante los últimos 62 años fueron consideradas para su estimación, para posteriormente ser graficados mediante los ["Warming Stripes"](https://showyourstripes.info/) (o "Franjas de Calentamiento") de Ed Hawkins. Las franjas de calentamiento son representaciones visuales donde se evalúa la evolución de las temperaturas para cada una de las regiones de interés.
 
 <img src="./workflow.svg" width="100%">
 
-### 2. Datos 
+### 2. Datos
 
-Los valores de temperatura máxima obtenidas durante  los últimos 62 años, fueron adquiridas del conjunto de datos de TerraClimate, un conjunto de datos de clima mensual y balance hídrico climático para superficies terrestres globales, más información [*clic aquí*](https://developers.google.com/earth-engine/datasets/catalog/IDAHO_EPSCOR_TERRACLIMATE#description). 
+Los valores de temperatura máxima obtenidas durante los últimos 62 años, fueron adquiridas del conjunto de datos de TerraClimate, un conjunto de datos de clima mensual y balance hídrico climático para superficies terrestres globales, más información [_clic aquí_](https://developers.google.com/earth-engine/datasets/catalog/IDAHO_EPSCOR_TERRACLIMATE#description).
 
 ### 3. Resultados {.tabset}
 
@@ -72,17 +70,18 @@ data <- tidydata %>% filter(dep == "AMAZONAS") %>%
 p1 <- data %>%
     ggplot(aes(x = year,y = 1, fill = temp)) +
     geom_tile() +
-    scale_fill_gradientn(
-      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
-      na.value = "transparent"
-    ) +
+  scale_fill_gradient2(
+    low = "#D10021",
+    mid = "#FFFFFF",
+    high = "#0575B6",
+    midpoint = ref) +
     labs(
       subtitle = "(1958-2020)",
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
       x = "",
       y = ""
     ) +
-    labs(title = "AMAZONAS") + 
+    labs(title = "AMAZONAS") +
   scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
   theme(panel.background = element_blank(),
         panel.grid = element_blank(),
@@ -95,17 +94,16 @@ Noax <- list(
   showgrid = FALSE
 )
 
-ggplotly(p1,tooltip = c("year","temp")) %>% 
-  config(displayModeBar = F) %>% 
-  layout(yaxis = Noax) %>% 
-  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+ggplotly(p1,tooltip = c("year","temp")) %>%
+  config(displayModeBar = F) %>%
+  layout(yaxis = Noax) %>%
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>%
   layout(title = list(text = paste0('AMAZONAS',
                                     '<br>',
                                     '<sup>',
                                      '(1958-2020)','</sup>')))
 
 ```
-
 
 #### ANCASH
 
@@ -119,26 +117,27 @@ data <- tidydata %>% filter(dep == "ANCASH") %>%
 p1 <- data %>%
     ggplot(aes(x = year,y = 1, fill = temp)) +
     geom_tile() +
-    scale_fill_gradientn(
-      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
-      na.value = "transparent"
-    ) +
+   scale_fill_gradient2(
+    low = "#D10021",
+    mid = "#FFFFFF",
+    high = "#0575B6",
+    midpoint = ref) +
     labs(
       subtitle = "(1958-2020)",
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
       x = "",
       y = ""
     ) +
-    labs(title = "ANCASH") + 
+    labs(title = "ANCASH") +
     scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
   theme(panel.background = element_blank(),
         panel.grid = element_blank(),
         axis.ticks = element_blank())
 
-ggplotly(p1,tooltip = c("year","temp")) %>% 
-  config(displayModeBar = F) %>% 
-  layout(yaxis = Noax) %>% 
-  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+ggplotly(p1,tooltip = c("year","temp")) %>%
+  config(displayModeBar = F) %>%
+  layout(yaxis = Noax) %>%
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>%
   layout(title = list(text = paste0('ANCASH',
                                     '<br>',
                                     '<sup>',
@@ -158,26 +157,27 @@ data <- tidydata %>% filter(dep == "APURIMAC") %>%
 p1 <- data %>%
     ggplot(aes(x = year,y = 1, fill = temp)) +
     geom_tile() +
-    scale_fill_gradientn(
-      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
-      na.value = "transparent"
-    ) +
+    scale_fill_gradient2(
+    low = "#D10021",
+    mid = "#FFFFFF",
+    high = "#0575B6",
+    midpoint = ref) +
     labs(
       subtitle = "(1958-2020)",
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
       x = "",
       y = ""
     ) +
-    labs(title = "APURIMAC") + 
+    labs(title = "APURIMAC") +
     scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
   theme(panel.background = element_blank(),
         panel.grid = element_blank(),
         axis.ticks = element_blank())
 
-ggplotly(p1,tooltip = c("year","temp")) %>% 
-  config(displayModeBar = F) %>% 
-  layout(yaxis = Noax) %>% 
-  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+ggplotly(p1,tooltip = c("year","temp")) %>%
+  config(displayModeBar = F) %>%
+  layout(yaxis = Noax) %>%
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>%
   layout(title = list(text = paste0('APURIMAC',
                                     '<br>',
                                     '<sup>',
@@ -196,27 +196,28 @@ data <- tidydata %>% filter(dep == "AREQUIPA") %>%
 p1 <- data %>%
     ggplot(aes(x = year,y = 1, fill = temp)) +
     geom_tile() +
-    scale_fill_gradientn(
-      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
-      na.value = "transparent"
-    ) +
+     scale_fill_gradient2(
+    low = "#D10021",
+    mid = "#FFFFFF",
+    high = "#0575B6",
+    midpoint = ref) +
 
     labs(
       subtitle = "(1958-2020)",
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
-      x = "", 
+      x = "",
       y = ""
     ) +
-    labs(title = "AREQUIPA")+ 
+    labs(title = "AREQUIPA")+
     scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
   theme(panel.background = element_blank(),
         panel.grid = element_blank(),
         axis.ticks = element_blank())
 
-ggplotly(p1,tooltip = c("year","temp")) %>% 
-  config(displayModeBar = F) %>% 
-  layout(yaxis = Noax) %>% 
-  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+ggplotly(p1,tooltip = c("year","temp")) %>%
+  config(displayModeBar = F) %>%
+  layout(yaxis = Noax) %>%
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>%
   layout(title = list(text = paste0('AREQUIPA',
                                     '<br>',
                                     '<sup>',
@@ -235,27 +236,27 @@ data <- tidydata %>% filter(dep == "AYACUCHO") %>%
 p1 <- data %>%
     ggplot(aes(x = year,y = 1, fill = temp)) +
     geom_tile() +
-    scale_fill_gradientn(
-      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
-      na.value = "transparent"
-    ) +
-
+  scale_fill_gradient2(
+    low = "#D10021",
+    mid = "#FFFFFF",
+    high = "#0575B6",
+    midpoint = ref) +
     labs(
       subtitle = "(1958-2020)",
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
-      x = "", 
+      x = "",
       y = ""
     )+
-    labs(title = "AYACUCHO")+ 
+    labs(title = "AYACUCHO")+
     scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
   theme(panel.background = element_blank(),
         panel.grid = element_blank(),
         axis.ticks = element_blank())
 
-ggplotly(p1,tooltip = c("year","temp")) %>% 
-  config(displayModeBar = F) %>% 
-  layout(yaxis = Noax) %>% 
-  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+ggplotly(p1,tooltip = c("year","temp")) %>%
+  config(displayModeBar = F) %>%
+  layout(yaxis = Noax) %>%
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>%
   layout(title = list(text = paste0('AYACUCHO',
                                     '<br>',
                                     '<sup>',
@@ -274,27 +275,28 @@ data <- tidydata %>% filter(dep == "CAJAMARCA") %>%
 p1 <- data %>%
     ggplot(aes(x = year,y = 1, fill = temp)) +
     geom_tile() +
-    scale_fill_gradientn(
-      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
-      na.value = "transparent"
-    ) +
+  scale_fill_gradient2(
+    low = "#D10021",
+    mid = "#FFFFFF",
+    high = "#0575B6",
+    midpoint = ref) +
 
     labs(
       subtitle = "(1958-2020)",
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
-      x = "", 
+      x = "",
       y = ""
     ) +
-    labs(title = "CAJAMARCA")+ 
+    labs(title = "CAJAMARCA")+
     scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
   theme(panel.background = element_blank(),
         panel.grid = element_blank(),
         axis.ticks = element_blank())
 
-ggplotly(p1,tooltip = c("year","temp")) %>% 
-  config(displayModeBar = F) %>% 
-  layout(yaxis = Noax) %>% 
-  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+ggplotly(p1,tooltip = c("year","temp")) %>%
+  config(displayModeBar = F) %>%
+  layout(yaxis = Noax) %>%
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>%
   layout(title = list(text = paste0('CAJAMARCA',
                                     '<br>',
                                     '<sup>',
@@ -313,27 +315,28 @@ data <- tidydata %>% filter(dep == "CUSCO") %>%
 p1 <- data %>%
     ggplot(aes(x = year,y = 1, fill = temp)) +
     geom_tile() +
-    scale_fill_gradientn(
-      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
-      na.value = "transparent"
-    ) +
+  scale_fill_gradient2(
+    low = "#D10021",
+    mid = "#FFFFFF",
+    high = "#0575B6",
+    midpoint = ref) +
 
     labs(
       subtitle = "(1958-2020)",
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
-      x = "", 
+      x = "",
       y = ""
     ) +
-    labs(title = "CUSCO")+ 
+    labs(title = "CUSCO")+
     scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
   theme(panel.background = element_blank(),
         panel.grid = element_blank(),
         axis.ticks = element_blank())
 
-ggplotly(p1,tooltip = c("year","temp")) %>% 
-  config(displayModeBar = F) %>% 
-  layout(yaxis = Noax) %>% 
-  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+ggplotly(p1,tooltip = c("year","temp")) %>%
+  config(displayModeBar = F) %>%
+  layout(yaxis = Noax) %>%
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>%
   layout(title = list(text = paste0('CUSCO',
                                     '<br>',
                                     '<sup>',
@@ -352,27 +355,28 @@ data <- tidydata %>% filter(dep == "HUANCAVELICA") %>%
 p1 <- data %>%
     ggplot(aes(x = year,y = 1, fill = temp)) +
     geom_tile() +
-    scale_fill_gradientn(
-      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
-      na.value = "transparent"
-    ) +
+  scale_fill_gradient2(
+    low = "#D10021",
+    mid = "#FFFFFF",
+    high = "#0575B6",
+    midpoint = ref) +
 
     labs(
       subtitle = "(1958-2020)",
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
-      x = "", 
+      x = "",
       y = ""
     ) +
-    labs(title = "HUANCAVELICA")+ 
+    labs(title = "HUANCAVELICA")+
     scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
   theme(panel.background = element_blank(),
         panel.grid = element_blank(),
         axis.ticks = element_blank())
 
-ggplotly(p1,tooltip = c("year","temp")) %>% 
-  config(displayModeBar = F) %>% 
-  layout(yaxis = Noax) %>% 
-  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+ggplotly(p1,tooltip = c("year","temp")) %>%
+  config(displayModeBar = F) %>%
+  layout(yaxis = Noax) %>%
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>%
   layout(title = list(text = paste0('HUANCAVELICA',
                                     '<br>',
                                     '<sup>',
@@ -391,27 +395,27 @@ data <- tidydata %>% filter(dep == "HUANUCO") %>%
 p1 <- data %>%
     ggplot(aes(x = year,y = 1, fill = temp)) +
     geom_tile() +
-    scale_fill_gradientn(
-      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
-      na.value = "transparent"
-    ) +
-
+  scale_fill_gradient2(
+    low = "#D10021",
+    mid = "#FFFFFF",
+    high = "#0575B6",
+    midpoint = ref) +
     labs(
       subtitle = "(1958-2020)",
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
-      x = "", 
+      x = "",
       y = ""
     ) +
-    labs(title = "HUANUCO")+ 
+    labs(title = "HUANUCO")+
     scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
   theme(panel.background = element_blank(),
         panel.grid = element_blank(),
         axis.ticks = element_blank())
 
-ggplotly(p1,tooltip = c("year","temp")) %>% 
-  config(displayModeBar = F) %>% 
-  layout(yaxis = Noax) %>% 
-  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+ggplotly(p1,tooltip = c("year","temp")) %>%
+  config(displayModeBar = F) %>%
+  layout(yaxis = Noax) %>%
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>%
   layout(title = list(text = paste0('HUANUCO',
                                     '<br>',
                                     '<sup>',
@@ -430,27 +434,28 @@ data <- tidydata %>% filter(dep == "ICA") %>%
 p1 <- data %>%
     ggplot(aes(x = year,y = 1, fill = temp)) +
     geom_tile() +
-    scale_fill_gradientn(
-      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
-      na.value = "transparent"
-    ) +
+  scale_fill_gradient2(
+    low = "#D10021",
+    mid = "#FFFFFF",
+    high = "#0575B6",
+    midpoint = ref) +
 
     labs(
       subtitle = "(1958-2020)",
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
-      x = "", 
+      x = "",
       y = ""
     )+
-    labs(title = "ICA")+ 
+    labs(title = "ICA")+
     scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
   theme(panel.background = element_blank(),
         panel.grid = element_blank(),
         axis.ticks = element_blank())
 
-ggplotly(p1,tooltip = c("year","temp")) %>% 
-  config(displayModeBar = F) %>% 
-  layout(yaxis = Noax) %>% 
-  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+ggplotly(p1,tooltip = c("year","temp")) %>%
+  config(displayModeBar = F) %>%
+  layout(yaxis = Noax) %>%
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>%
   layout(title = list(text = paste0('ICA',
                                     '<br>',
                                     '<sup>',
@@ -469,27 +474,28 @@ data <- tidydata %>% filter(dep == "JUNIN") %>%
 p1 <- data %>%
     ggplot(aes(x = year,y = 1, fill = temp)) +
     geom_tile() +
-    scale_fill_gradientn(
-      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
-      na.value = "transparent"
-    ) +
+   scale_fill_gradient2(
+    low = "#D10021",
+    mid = "#FFFFFF",
+    high = "#0575B6",
+    midpoint = ref) +
 
     labs(
       subtitle = "(1958-2020)",
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
-      x = "", 
+      x = "",
       y = ""
     )+
-    labs(title = "JUNIN")+ 
+    labs(title = "JUNIN")+
     scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
   theme(panel.background = element_blank(),
         panel.grid = element_blank(),
         axis.ticks = element_blank())
 
-ggplotly(p1,tooltip = c("year","temp")) %>% 
-  config(displayModeBar = F) %>% 
-  layout(yaxis = Noax) %>% 
-  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+ggplotly(p1,tooltip = c("year","temp")) %>%
+  config(displayModeBar = F) %>%
+  layout(yaxis = Noax) %>%
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>%
   layout(title = list(text = paste0('JUNIN',
                                     '<br>',
                                     '<sup>',
@@ -508,33 +514,33 @@ data <- tidydata %>% filter(dep == "LA LIBERTAD") %>%
 p1 <- data %>%
     ggplot(aes(x = year,y = 1, fill = temp)) +
     geom_tile() +
-    scale_fill_gradientn(
-      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
-      na.value = "transparent"
-    ) +
+  scale_fill_gradient2(
+    low = "#D10021",
+    mid = "#FFFFFF",
+    high = "#0575B6",
+    midpoint = ref) +
 
     labs(
       subtitle = "(1958-2020)",
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
-      x = "", 
+      x = "",
       y = ""
     )+
-    labs(title = "LA LIBERTAD")+ 
+    labs(title = "LA LIBERTAD")+
     scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
   theme(panel.background = element_blank(),
         panel.grid = element_blank(),
         axis.ticks = element_blank())
 
-ggplotly(p1,tooltip = c("year","temp")) %>% 
-  config(displayModeBar = F) %>% 
-  layout(yaxis = Noax) %>% 
-  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+ggplotly(p1,tooltip = c("year","temp")) %>%
+  config(displayModeBar = F) %>%
+  layout(yaxis = Noax) %>%
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>%
   layout(title = list(text = paste0('LA LIBERTAD',
                                     '<br>',
                                     '<sup>',
                                      '(1958-2020)','</sup>')))
 ```
-
 
 #### LAMBAYEQUE
 
@@ -548,33 +554,33 @@ data <- tidydata %>% filter(dep == "LAMBAYEQUE") %>%
 p1 <- data %>%
     ggplot(aes(x = year,y = 1, fill = temp)) +
     geom_tile() +
-    scale_fill_gradientn(
-      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
-      na.value = "transparent"
-    ) +
+  scale_fill_gradient2(
+    low = "#D10021",
+    mid = "#FFFFFF",
+    high = "#0575B6",
+    midpoint = ref) +
 
     labs(
       subtitle = "(1958-2020)",
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
-      x = "", 
+      x = "",
       y = ""
     ) +
-    labs(title = "LAMBAYEQUE")+ 
+    labs(title = "LAMBAYEQUE")+
     scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
   theme(panel.background = element_blank(),
         panel.grid = element_blank(),
         axis.ticks = element_blank())
 
-ggplotly(p1,tooltip = c("year","temp")) %>% 
-  config(displayModeBar = F) %>% 
-  layout(yaxis = Noax) %>% 
-  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+ggplotly(p1,tooltip = c("year","temp")) %>%
+  config(displayModeBar = F) %>%
+  layout(yaxis = Noax) %>%
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>%
   layout(title = list(text = paste0('LAMBAYEQUE',
                                     '<br>',
                                     '<sup>',
                                      '(1958-2020)','</sup>')))
 ```
-
 
 #### LIMA
 
@@ -588,27 +594,27 @@ data <- tidydata %>% filter(dep == "LIMA") %>%
 p1 <- data %>%
     ggplot(aes(x = year,y = 1, fill = temp)) +
     geom_tile() +
-    scale_fill_gradientn(
-      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
-      na.value = "transparent"
-    ) +
-
+  scale_fill_gradient2(
+    low = "#D10021",
+    mid = "#FFFFFF",
+    high = "#0575B6",
+    midpoint = ref) +
     labs(
       subtitle = "(1958-2020)",
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
-      x = "", 
+      x = "",
       y = ""
     ) +
-    labs(title = "LIMA")+ 
+    labs(title = "LIMA")+
     scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
   theme(panel.background = element_blank(),
         panel.grid = element_blank(),
         axis.ticks = element_blank())
 
-ggplotly(p1,tooltip = c("year","temp")) %>% 
-  config(displayModeBar = F) %>% 
-  layout(yaxis = Noax) %>% 
-  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+ggplotly(p1,tooltip = c("year","temp")) %>%
+  config(displayModeBar = F) %>%
+  layout(yaxis = Noax) %>%
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>%
   layout(title = list(text = paste0('LIMA',
                                     '<br>',
                                     '<sup>',
@@ -627,27 +633,28 @@ data <- tidydata %>% filter(dep == "LORETO") %>%
 p1 <- data %>%
     ggplot(aes(x = year,y = 1, fill = temp)) +
     geom_tile() +
-    scale_fill_gradientn(
-      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
-      na.value = "transparent"
-    ) +
+  scale_fill_gradient2(
+    low = "#D10021",
+    mid = "#FFFFFF",
+    high = "#0575B6",
+    midpoint = ref) +
 
     labs(
       subtitle = "(1958-2020)",
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
-      x = "", 
+      x = "",
       y = ""
     )+
-    labs(title = "LORETO")+ 
+    labs(title = "LORETO")+
     scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
   theme(panel.background = element_blank(),
         panel.grid = element_blank(),
         axis.ticks = element_blank())
 
-ggplotly(p1,tooltip = c("year","temp")) %>% 
-  config(displayModeBar = F) %>% 
-  layout(yaxis = Noax) %>% 
-  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+ggplotly(p1,tooltip = c("year","temp")) %>%
+  config(displayModeBar = F) %>%
+  layout(yaxis = Noax) %>%
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>%
   layout(title = list(text = paste0('LORETO',
                                     '<br>',
                                     '<sup>',
@@ -666,27 +673,27 @@ data <- tidydata %>% filter(dep == "MADRE DE DIOS") %>%
 p1 <- data %>%
     ggplot(aes(x = year,y = 1, fill = temp)) +
     geom_tile() +
-    scale_fill_gradientn(
-      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
-      na.value = "transparent"
-    ) +
-
+  scale_fill_gradient2(
+    low = "#D10021",
+    mid = "#FFFFFF",
+    high = "#0575B6",
+    midpoint = ref) +
     labs(
       subtitle = "(1958-2020)",
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
-      x = "", 
+      x = "",
       y = ""
     ) +
-    labs(title = "MADRE DE DIOS")+ 
+    labs(title = "MADRE DE DIOS")+
     scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
   theme(panel.background = element_blank(),
         panel.grid = element_blank(),
         axis.ticks = element_blank())
 
-ggplotly(p1,tooltip = c("year","temp")) %>% 
-  config(displayModeBar = F) %>% 
-  layout(yaxis = Noax) %>% 
-  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+ggplotly(p1,tooltip = c("year","temp")) %>%
+  config(displayModeBar = F) %>%
+  layout(yaxis = Noax) %>%
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>%
   layout(title = list(text = paste0('MADRE DE DIOS',
                                     '<br>',
                                     '<sup>',
@@ -705,27 +712,27 @@ data <- tidydata %>% filter(dep == "MOQUEGUA") %>%
 p1 <- data %>%
     ggplot(aes(x = year,y = 1, fill = temp)) +
     geom_tile() +
-    scale_fill_gradientn(
-      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
-      na.value = "transparent"
-    ) +
-
+  scale_fill_gradient2(
+    low = "#D10021",
+    mid = "#FFFFFF",
+    high = "#0575B6",
+    midpoint = ref) +
     labs(
       subtitle = "(1958-2020)",
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
-      x = "", 
+      x = "",
       y = ""
     ) +
-    labs(title = "MOQUEGUA")+ 
+    labs(title = "MOQUEGUA")+
     scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
   theme(panel.background = element_blank(),
         panel.grid = element_blank(),
         axis.ticks = element_blank())
 
-ggplotly(p1,tooltip = c("year","temp")) %>% 
-  config(displayModeBar = F) %>% 
-  layout(yaxis = Noax) %>% 
-  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+ggplotly(p1,tooltip = c("year","temp")) %>%
+  config(displayModeBar = F) %>%
+  layout(yaxis = Noax) %>%
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>%
   layout(title = list(text = paste0('MOQUEGUA',
                                     '<br>',
                                     '<sup>',
@@ -744,27 +751,28 @@ data <- tidydata %>% filter(dep == "PASCO") %>%
 p1 <- data %>%
     ggplot(aes(x = year,y = 1, fill = temp)) +
     geom_tile() +
-    scale_fill_gradientn(
-      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
-      na.value = "transparent"
-    ) +
+  scale_fill_gradient2(
+    low = "#D10021",
+    mid = "#FFFFFF",
+    high = "#0575B6",
+    midpoint = ref) +
 
     labs(
       subtitle = "(1958-2020)",
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
-      x = "", 
+      x = "",
       y = ""
     ) +
-    labs(title = "PASCO")+ 
+    labs(title = "PASCO")+
     scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
   theme(panel.background = element_blank(),
         panel.grid = element_blank(),
         axis.ticks = element_blank())
 
-ggplotly(p1,tooltip = c("year","temp")) %>% 
-  config(displayModeBar = F) %>% 
-  layout(yaxis = Noax) %>% 
-  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+ggplotly(p1,tooltip = c("year","temp")) %>%
+  config(displayModeBar = F) %>%
+  layout(yaxis = Noax) %>%
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>%
   layout(title = list(text = paste0('PASCO',
                                     '<br>',
                                     '<sup>',
@@ -783,27 +791,28 @@ data <- tidydata %>% filter(dep == "PIURA") %>%
 p1 <- data %>%
     ggplot(aes(x = year,y = 1, fill = temp)) +
     geom_tile() +
-    scale_fill_gradientn(
-      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
-      na.value = "transparent"
-    ) +
+  scale_fill_gradient2(
+    low = "#D10021",
+    mid = "#FFFFFF",
+    high = "#0575B6",
+    midpoint = ref) +
 
     labs(
       subtitle = "(1958-2020)",
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
-      x = "", 
+      x = "",
       y = ""
     ) +
-    labs(title = "PIURA")+ 
+    labs(title = "PIURA")+
     scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
   theme(panel.background = element_blank(),
         panel.grid = element_blank(),
         axis.ticks = element_blank())
 
-ggplotly(p1,tooltip = c("year","temp")) %>% 
-  config(displayModeBar = F) %>% 
-  layout(yaxis = Noax) %>% 
-  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+ggplotly(p1,tooltip = c("year","temp")) %>%
+  config(displayModeBar = F) %>%
+  layout(yaxis = Noax) %>%
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>%
   layout(title = list(text = paste0('PIURA',
                                     '<br>',
                                     '<sup>',
@@ -822,33 +831,33 @@ data <- tidydata %>% filter(dep == "PUNO") %>%
 p1 <- data %>%
     ggplot(aes(x = year,y = 1, fill = temp)) +
     geom_tile() +
-    scale_fill_gradientn(
-      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
-      na.value = "transparent"
-    ) +
+  scale_fill_gradient2(
+    low = "#D10021",
+    mid = "#FFFFFF",
+    high = "#0575B6",
+    midpoint = ref) +
 
     labs(
       subtitle = "(1958-2020)",
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
-      x = "", 
+      x = "",
       y = ""
     ) +
-    labs(title = "PUNO")+ 
+    labs(title = "PUNO")+
     scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
   theme(panel.background = element_blank(),
         panel.grid = element_blank(),
         axis.ticks = element_blank())
 
-ggplotly(p1,tooltip = c("year","temp")) %>% 
-  config(displayModeBar = F) %>% 
-  layout(yaxis = Noax) %>% 
-  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+ggplotly(p1,tooltip = c("year","temp")) %>%
+  config(displayModeBar = F) %>%
+  layout(yaxis = Noax) %>%
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>%
   layout(title = list(text = paste0('PUNO',
                                     '<br>',
                                     '<sup>',
                                      '(1958-2020)','</sup>')))
 ```
-
 
 #### SAN MARTIN
 
@@ -862,27 +871,28 @@ data <- tidydata %>% filter(dep == "SAN MARTIN") %>%
 p1 <- data %>%
     ggplot(aes(x = year,y = 1, fill = temp)) +
     geom_tile() +
-    scale_fill_gradientn(
-      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
-      na.value = "transparent"
-    ) +
+  scale_fill_gradient2(
+    low = "#D10021",
+    mid = "#FFFFFF",
+    high = "#0575B6",
+    midpoint = ref) +
 
     labs(
       subtitle = "(1958-2020)",
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
-      x = "", 
+      x = "",
       y = ""
     ) +
-    labs(title = "SAN MARTIN")+ 
+    labs(title = "SAN MARTIN")+
     scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
   theme(panel.background = element_blank(),
         panel.grid = element_blank(),
         axis.ticks = element_blank())
 
-ggplotly(p1,tooltip = c("year","temp")) %>% 
-  config(displayModeBar = F) %>% 
-  layout(yaxis = Noax) %>% 
-  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+ggplotly(p1,tooltip = c("year","temp")) %>%
+  config(displayModeBar = F) %>%
+  layout(yaxis = Noax) %>%
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>%
   layout(title = list(text = paste0('SAN MARTIN',
                                     '<br>',
                                     '<sup>',
@@ -901,27 +911,28 @@ data <- tidydata %>% filter(dep == "TACNA") %>%
 p1 <- data %>%
     ggplot(aes(x = year,y = 1, fill = temp)) +
     geom_tile() +
-    scale_fill_gradientn(
-      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
-      na.value = "transparent"
-    ) +
+  scale_fill_gradient2(
+    low = "#D10021",
+    mid = "#FFFFFF",
+    high = "#0575B6",
+    midpoint = ref) +
 
     labs(
       subtitle = "(1958-2020)",
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
-      x = "", 
+      x = "",
       y = ""
     ) +
-    labs(title = "TACNA")+ 
+    labs(title = "TACNA")+
     scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
   theme(panel.background = element_blank(),
         panel.grid = element_blank(),
         axis.ticks = element_blank())
 
-ggplotly(p1,tooltip = c("year","temp")) %>% 
-  config(displayModeBar = F) %>% 
-  layout(yaxis = Noax) %>% 
-  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+ggplotly(p1,tooltip = c("year","temp")) %>%
+  config(displayModeBar = F) %>%
+  layout(yaxis = Noax) %>%
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>%
   layout(title = list(text = paste0('TACNA',
                                     '<br>',
                                     '<sup>',
@@ -940,27 +951,28 @@ data <- tidydata %>% filter(dep == "TUMBES") %>%
 p1 <- data %>%
     ggplot(aes(x = year,y = 1, fill = temp)) +
     geom_tile() +
-    scale_fill_gradientn(
-      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
-      na.value = "transparent"
-    ) +
+  scale_fill_gradient2(
+    low = "#D10021",
+    mid = "#FFFFFF",
+    high = "#0575B6",
+    midpoint = ref) +
 
     labs(
       subtitle = "(1958-2020)",
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
-      x = "", 
+      x = "",
       y = ""
     ) +
-    labs(title = "TUMBES")+ 
+    labs(title = "TUMBES")+
     scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
   theme(panel.background = element_blank(),
         panel.grid = element_blank(),
         axis.ticks = element_blank())
 
-ggplotly(p1,tooltip = c("year","temp")) %>% 
-  config(displayModeBar = F) %>% 
-  layout(yaxis = Noax) %>% 
-  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+ggplotly(p1,tooltip = c("year","temp")) %>%
+  config(displayModeBar = F) %>%
+  layout(yaxis = Noax) %>%
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>%
   layout(title = list(text = paste0('TUMBES',
                                     '<br>',
                                     '<sup>',
@@ -979,35 +991,30 @@ data <- tidydata %>% filter(dep == "UCAYALI") %>%
 p1 <- data %>%
     ggplot(aes(x = year,y = 1, fill = temp)) +
     geom_tile() +
-    scale_fill_gradientn(
-      colors = cpt(pal = "cb_div_RdBu_05",n = 5,rev = T),
-      na.value = "transparent"
-    ) +
+  scale_fill_gradient2(
+    low = "#D10021",
+    mid = "#FFFFFF",
+    high = "#0575B6",
+    midpoint = ref) +
 
     labs(
       subtitle = "(1958-2020)",
       caption = "Source: Elaborado por Pendulum-Lab con datos de TerraClim",
-      x = "", 
+      x = "",
       y = ""
     ) +
-    labs(title = "UCAYALI") + 
+    labs(title = "UCAYALI") +
   scale_x_continuous(breaks = seq(from = 1958, to = 2020, by = 10)) +
   theme(panel.background = element_blank(),
         panel.grid = element_blank(),
         axis.ticks = element_blank())
 
-ggplotly(p1,tooltip = c("year","temp")) %>% 
-  config(displayModeBar = F) %>% 
-  layout(yaxis = Noax) %>% 
-  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>% 
+ggplotly(p1,tooltip = c("year","temp")) %>%
+  config(displayModeBar = F) %>%
+  layout(yaxis = Noax) %>%
+  layout(xaxis = list(text = sprintf("%s", seq(1958,2020,10)))) %>%
   layout(title = list(text = paste0('UCAYALI',
                                     '<br>',
                                     '<sup>',
                                      '(1958-2020)','</sup>')))
 ```
-
-
-
-
-
-
