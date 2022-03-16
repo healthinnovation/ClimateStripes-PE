@@ -50,7 +50,7 @@ names <- tidydata %>% select(dep) %>% unique()
 
 ### 1. Metodología
 
-> Los valores de temperatura máxima estimado para cada uno de los 24 departamentos del Perú desde el año de 1958 al 2020, fueron calculados mediante estadísticas areales, donde el valor máximo anual de todos pixeles en las respectivas regiones durante los últimos 62 años fueron consideradas para su estimación, para posteriormente ser graficados mediante los ["Warming Stripes"](https://showyourstripes.info/) (o "Franjas de Calentamiento") de Ed Hawkins. Las franjas de calentamiento son representaciones visuales donde se evalúa la evolución de las temperaturas para cada una de las regiones de interés.
+> Los valores de temperatura máxima estimado para cada uno de los 24 departamentos del Perú desde el año de 1958 al 2020 fueron calculados mediante estadísticas areales, donde el valor máximo anual de todos pixeles en las respectivas regiones durante los últimos 62 años fueron considerados para su estimación. Posteriormente fueron graficados mediante los ["Warming Stripes"](https://showyourstripes.info/) o "Franjas de Calentamiento" de Ed Hawkins. Las franjas de calentamiento son representaciones visuales donde se evalúa la evolución de las temperaturas para cada una de las regiones de interés. Para este reporte se consideró una escala de color centrada (color blanco) en el valor promedio de la temperatura de los años 1960 y 1990.
 
 <img src="./workflow.svg" width="100%">
 
